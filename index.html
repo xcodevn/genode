@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Tinycore run on Genode by xcodevn</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Tinycore run on Genode</h1>
+        <h2>A version of Linux run on genode framework</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/xcodevn/genode/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/xcodevn/genode/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/xcodevn/genode" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h3>
+<a name="welcome-to-tinycoregenode" class="anchor" href="#welcome-to-tinycoregenode"><span class="octicon octicon-link"></span></a>Welcome to Tinycore/Genode</h3>
+
+<p>This page show the way to create a version of linux run on genode framework.</p>
+
+<p>I assumes you know how to install git in your machine.</p>
+
+<p>To clone this repo into your computer:</p>
+
+<pre><code>$ git clone https://github.com/xcodevn/genode.git
+</code></pre>
+
+<h3>
+<a name="prepare-tool-chain" class="anchor" href="#prepare-tool-chain"><span class="octicon octicon-link"></span></a>Prepare tool-chain</h3>
+
+<p>The first thing you need for compiling is tool-chains. For convenient, genode framework sticks with only one tool-chain. You have to choices here: (1) your can download pre-compiled tool-chain from Internet or (2) compiler tool-chain on your machine. For detail information, go there: <a href="http://genode.org/download/tool-chain">http://genode.org/download/tool-chain</a>.</p>
+
+<p>If you're lazy for reading these notes and like looking compile progress. Do follow commands:</p>
+
+<pre><code>$ cd genode
+$ ./tool/tool_chain x86
+</code></pre>
+
+<p>Then, have a cup of coffee and waiting ...</p>
+
+<h3>
+<a name="create-your-image" class="anchor" href="#create-your-image"><span class="octicon octicon-link"></span></a>Create your image</h3>
+
+<p>I intend to create a script for doing all those bellow stuff in automatic way. For current stage, you have to do by your hands:</p>
+
+<pre><code># Prepare foc
+$ cd ~/genode/base-foc
+$ make prepare
+# Prepare libports
+$ cd ~/genode/libports
+$ make prepare
+# Prepare port
+$ cd ~/genode/ports
+$ make prepare
+# Prapre dde_ipxe
+$ cd ~/genode/dde_ipxe
+$ make prepare
+# Finally, prepare L4linux
+$ cd ~/genode/ports-foc
+$ make prepare
+</code></pre>
+
+<p>I hope you have a fast Internet line ;)</p>
+
+<p>After those step, now, we'll create Makefile</p>
+
+<pre><code>$ cd ~/genode
+$ ./tool/create_builddir foc_x86_32 tinycore   # new directory 'tinycore' will be created
+# Add one more thing
+$ cat &gt;&gt; tinycore/etc/build.conf &lt;&lt;EOF
+REPOSITORIES += $(GENODE_DIR)/libports
+REPOSITORIES += $(GENODE_DIR)/ports
+REPOSITORIES += $(GENODE_DIR)/ports-foc
+REPOSITORIES += $(GENODE_DIR)/dde_ipxe
+# This bellow line for who has a two-cores CPU
+MAKE += -j 2
+EOF
+</code></pre>
+
+<p>Finally, run our tinycore</p>
+
+<pre><code>$ cd ~/genode/tinycore
+$ make run/tinycore
+</code></pre>
+
+<p>We have to wait for everything is compiled. Enjoy your hacking!</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
