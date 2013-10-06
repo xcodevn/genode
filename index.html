@@ -31,9 +31,9 @@
         <h3>
 <a name="welcome-to-tinycoregenode" class="anchor" href="#welcome-to-tinycoregenode"><span class="octicon octicon-link"></span></a>Welcome to Tinycore/Genode</h3>
 
-<p>This page show the way to create a version of linux run on genode framework.</p>
+<p>This page show how to create a version of <code>Linux</code> run on <code>Genode framework</code>.</p>
 
-<p>I assumes you know how to install git in your machine.</p>
+<p>I assumes you know how to install git in your machine and of course, you're using a Unix-like OS :)</p>
 
 <p>To clone this repo into your computer:</p>
 
@@ -43,7 +43,7 @@
 <h3>
 <a name="prepare-tool-chain" class="anchor" href="#prepare-tool-chain"><span class="octicon octicon-link"></span></a>Prepare tool-chain</h3>
 
-<p>The first thing you need for compiling is tool-chains. For convenient, genode framework sticks with only one tool-chain. You have to choices here: (1) your can download pre-compiled tool-chain from Internet or (2) compiler tool-chain on your machine. For detail information, go there: <a href="http://genode.org/download/tool-chain">http://genode.org/download/tool-chain</a>.</p>
+<p>The first thing you need for compiling is tool-chains. For convenient, Genode framework sticks with one tool-chain. You have two choices here: (1) your can download pre-compiled tool-chain from Internet or (2) compiler tool-chain on your machine. For detail information, go there: <a href="http://genode.org/download/tool-chain">http://genode.org/download/tool-chain</a>.</p>
 
 <p>If you're lazy for reading these notes and like looking compile progress. Do follow commands:</p>
 
@@ -51,7 +51,7 @@
 $ ./tool/tool_chain x86
 </code></pre>
 
-<p>Then, have a cup of coffee and waiting ...</p>
+<p>Then, having a cup of coffee and waiting ...</p>
 
 <h3>
 <a name="create-your-image" class="anchor" href="#create-your-image"><span class="octicon octicon-link"></span></a>Create your image</h3>
@@ -87,12 +87,11 @@ REPOSITORIES += $(GENODE_DIR)/libports
 REPOSITORIES += $(GENODE_DIR)/ports
 REPOSITORIES += $(GENODE_DIR)/ports-foc
 REPOSITORIES += $(GENODE_DIR)/dde_ipxe
-# This bellow line for who has a two-cores CPU
-MAKE += -j 2
+MAKE += -j 2   # This line for who has a two-cores CPU, like me
 EOF
 </code></pre>
 
-<p>Finally, run our tinycore</p>
+<p>Finally, compile and run tinycore</p>
 
 <pre><code>$ cd ~/genode/tinycore
 $ make run/tinycore
